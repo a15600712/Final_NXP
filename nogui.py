@@ -64,7 +64,7 @@ class App:
         self.yolo_detector = YoloDetectorWrapper("/home/anon/projects/Monkey/New/models/model_datasetv9.pt")
         self.lockerstatus = False
         target_indices = {0}  # Assuming target index for detection
-        self.detection_counter = FrameCounter(target_indices, 2)
+        self.detection_counter = FrameCounter(target_indices, 1)
         
         
     @staticmethod
@@ -76,12 +76,16 @@ class App:
     def process_frame(self, cv_img):
         host='10.20.2.162'
         port=12345
-        connection=self.connect_socket(host,port)
         results = self.yolo_detector.predict(cv_img)
         if self.detection_counter.check_detection_results(results):
             if not self.lockerstatus:
-                print('Lock1')
-                connection.sendall("Lock1".encode())
+                print('LockAll')
+                connection=self.connect_socket(host,port)
+                connection.sendall("LockAll".encode())
+                connection.close()
+                connection=self.connect_socket(host,port)
+                connection.sendall("Bon".encode())
+                connection.close()
                 sendLineNotify(draw_annotation(cv_img, self.yolo_detector.get_label_names(), results))
                 self.lockerstatus = True
             else:

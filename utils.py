@@ -24,7 +24,7 @@ def sendLineNotify(image_array):
         t1 = time.localtime(t)
         now = time.strftime('%Y/%m/%d %H:%M:%S', t1)
         url = 'https://notify-api.line.me/api/notify'
-        token = 'TokenHere'
+        token = 'qLmfTs8g5k3CXEinmKYrs6lE7gV19C38Qjr3bMqybj8'
         headers = {
         'Authorization': 'Bearer ' + token
         }

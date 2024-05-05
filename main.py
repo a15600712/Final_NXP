@@ -22,7 +22,6 @@ def process(command):
 	if command=="SystemOn":
 		subprocess_instance=subprocess.Popen(["/home/anon/miniconda3/envs/yolov8_picam/bin/python", "/home/anon/projects/Monkey/New/nogui.py"])
 	elif (command=="SystemOff" ) and subprocess_instance is not None:
-		
 		subprocess_instance.terminate()
 		subprocess_instance = None
 	elif command == "UnlockAll":
@@ -33,16 +32,20 @@ def process(command):
 		client_socket.sendall("Lock1".encode())
 	elif command == "Unlock1":
 		client_socket.sendall("Unlock1".encode())
+	elif command == "Lock2":
+		client_socket.sendall("Lock2".encode())
+	elif command == "Unlock2":
+		client_socket.sendall("Unlock2".encode())
+	elif command == "Boff":
+		client_socket.sendall("Boff".encode())
 	client_socket.close()
-
-
 
 try:	
 	while True:
 		command=read_serial_response(ser)
 		print(command)
 		process(command)
-		time.sleep(0.001)
+		time.sleep(0.1)
 finally:
 	if client_socket is not None:
 		client_socket.close()

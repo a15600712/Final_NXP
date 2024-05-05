@@ -1,5 +1,5 @@
 import socket
-
+import time
 
 # 設定伺服器的 IP 位址與通訊埠
 host = '10.20.2.162'
@@ -10,16 +10,20 @@ port = 12345
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
+
 # 連線至伺服器
 client_socket.connect((host, port))
 
 
  #傳送資料給伺服器
-client_socket.sendall("Unlock1".encode())
-
-
- #關閉連線
+client_socket.sendall("UnlockAll".encode())
 client_socket.close()
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect((host, port))
+client_socket.sendall("Boff".encode())
+client_socket.close()
+ #關閉連線
+
 '''
 import serial
 
